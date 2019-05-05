@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="titlebar_height">50dp</dimen>
+    <dimen name="tabhost_height">60dp</dimen>
+    <dimen name="item_width">80dp</dimen>
+    <dimen name="item_height">100dp</dimen>
+    <dimen name="work_gap">1dp</dimen>
+    <dimen name="item_gap">5dp</dimen>
+    <dimen name="custom_view_width">80dp</dimen>
+    <dimen name="custom_view_key_length">6</dimen>
+
+    <dimen name="fontSize_14sp">14sp</dimen>
+    <dimen name="fontSize_16sp">16sp</dimen>
+    <dimen name="fontSize_18sp">18sp</dimen>
+    <dimen name="dp_70">70dp</dimen>
+    <dimen name="dp_14">14dp</dimen>
+    <dimen name="dp_10">10dp</dimen>
+    <dimen name="dp_4">4dp</dimen>
+    <dimen name="dp_50">50dp</dimen>
+    <dimen name="dp_15">15dp</dimen>
+    <dimen name="dp_2">2dp</dimen>
+    <dimen name="dp_13">13dp</dimen>
+    <dimen name="dp_40">40dp</dimen>
+</resources>
