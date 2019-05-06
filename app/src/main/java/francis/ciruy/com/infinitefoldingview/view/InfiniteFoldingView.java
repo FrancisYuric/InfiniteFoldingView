@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -120,16 +121,20 @@ public class InfiniteFoldingView extends LinearLayout  {
                 onItemChildViewClickListener.onItemChildViewClick(view, -1, CLICK_POS.TITLE.name(), baseContactEntity);
             }});
         titleView.addView(view);
-        if (adapter == null) {
-            adapter = new CustomContactViewAdapter(context, baseContactEntity.subDepartment);
+        if (adapter == null || adapter.getList() == null) {
+            if (adapter == null) {
+                adapter = new CustomContactViewAdapter(context, baseContactEntity.subDepartment);
+            }
+            if (adapter.getList() == null) {
+                adapter.setList(baseContactEntity.subDepartment);
+            }
             adapter.registerViewController(contactViewController);
             adapter.setOnItemChildViewClickListener((childView, position, action, obj) -> {
                 BaseContactEntity baseContactEntity1 = (BaseContactEntity) obj;
+                if (onItemChildViewClickListener != null) {
+                    onItemChildViewClickListener.onItemChildViewClick(childView, position, action, obj);
+                }
                 if (baseContactEntity1.subDepartment == null || baseContactEntity1.subDepartment.size() <= 0) {
-
-                    if(onItemChildViewClickListener != null) {
-                        onItemChildViewClickListener.onItemChildViewClick(childView, -1, CLICK_POS.CONTENT.name(), baseContactEntity);
-                    }
                     return;
                 }
                 contactUtil.clicked(baseContactEntity1);
@@ -172,9 +177,14 @@ public class InfiniteFoldingView extends LinearLayout  {
         initRecyclerView();
     }
 
-    public void setAdapter(CustomContactViewAdapter adapter) {
-        this.adapter = adapter;
+    public InfiniteFoldingView setAdapter(CustomContactViewAdapter adapter) {
+        if (contactViewController == null) {
+            Log.e("Ciruy Log", "Please call contentViewController() to init it first!");
+            contactViewController = new ContentViewController();
+        }
+        this.adapter = adapter.registerViewController(contactViewController);
         contentView.setAdapter(adapter);
+        return this;
     }
 
     private void initRecyclerView() {

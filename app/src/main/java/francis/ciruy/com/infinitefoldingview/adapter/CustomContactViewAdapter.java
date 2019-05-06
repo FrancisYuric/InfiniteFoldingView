@@ -7,12 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-
 import java.util.List;
 
 import francis.ciruy.com.infinitefoldingview.controller.viewController.ContactViewController;
 import francis.ciruy.com.infinitefoldingview.entity.BaseContactEntity;
 import francis.ciruy.com.infinitefoldingview.entity.OnItemChildViewClickListener;
+import francis.ciruy.com.infinitefoldingview.view.InfiniteFoldingView;
 
 public class CustomContactViewAdapter<T extends BaseContactEntity> extends RecyclerView.Adapter {
     private List<T> list;
@@ -29,6 +29,14 @@ public class CustomContactViewAdapter<T extends BaseContactEntity> extends Recyc
         this.list = list;
     }
 
+    public List<T> getList() {
+        return list;
+    }
+
+    public CustomContactViewAdapter(Context context) {
+        super();
+    }
+
     public CustomContactViewAdapter registerViewController(ContactViewController contactViewController) {
         this.contactViewController = contactViewController;
         return this;
@@ -42,14 +50,14 @@ public class CustomContactViewAdapter<T extends BaseContactEntity> extends Recyc
                 right.setOnClickListener(v -> {
                     if (onItemChildViewClickListener != null && getAdapterPosition() >= 0) {
                         onItemChildViewClickListener.onItemChildViewClick(v, VH.this.getAdapterPosition(),
-                                1, list.get(VH.this.getAdapterPosition()));
+                                InfiniteFoldingView.CLICK_POS.RIGHT_BTN.name(), list.get(VH.this.getAdapterPosition()));
                     }
                 });
             }
             itemView.setOnClickListener(v -> {
                 if (onItemChildViewClickListener != null && getAdapterPosition() >= 0) {
                     onItemChildViewClickListener.onItemChildViewClick(v, VH.this.getAdapterPosition(),
-                            0, list.get(VH.this.getAdapterPosition()));
+                            InfiniteFoldingView.CLICK_POS.CONTENT.name(), list.get(VH.this.getAdapterPosition()));
                 }
             });
         }
